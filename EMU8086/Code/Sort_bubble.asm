@@ -3,7 +3,7 @@
 ;define the global label
 DATA SEGMENT
     ;define variables!
-	TAB dw 19,15,13,14,18,62,14,42,35,68
+	TAB DB 5,4,3,2,1
 ENDS
 
 STACK SEGMENT
@@ -18,21 +18,20 @@ START:
     MOV DS, AX
 	
     ; CODE begin here
-	MOV CX,10-1
+	MOV CX,5-1
 	
 loop1:
 	PUSH CX
 	MOV  BX,0
 loop2:	
-	MOV AX,TAB[BX]	
-	CMP AX,TAB[BX+2];
-	
-	JLE continue
-	XCHG AX,TAB[BX+2]
-	MOV TAB[BX],AX
+	MOV AL,TAB[BX]	
+	CMP AL,TAB[BX+1];	
+	JL continue
+	XCHG AL,TAB[BX+1]
+	MOV TAB[BX],AL
 
 continue:
-	ADD BX,2;
+	ADD BX,1;
 	LOOP loop2
 	POP CX
 	LOOP loop1
